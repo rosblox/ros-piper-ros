@@ -1,6 +1,7 @@
 services:
   ros-piper:
     image: ghcr.io/rosblox/ros-piper:humble
+    # image: max:test
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,6 +9,9 @@ services:
     network_mode: "host"
     ipc: host
     pid: host
+    devices:
+      - /dev/dri/card1
+    privileged: true
     environment:
       - UID=${HOST_UID}
       - ROS_DOMAIN_ID
