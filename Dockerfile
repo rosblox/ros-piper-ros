@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-joint-state-publisher-gui \
     ros-${ROS_DISTRO}-xacro \
     ros-${ROS_DISTRO}-robot-state-publisher \
+    ethtool \
+    can-utils \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install python-can scipy piper_sdk
