@@ -1,5 +1,5 @@
 services:
-  ros-piper:
+  ros-piper-ros:
     image: ghcr.io/rosblox/ros-piper:humble
     build:
       context: .
