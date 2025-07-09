@@ -2,6 +2,9 @@ ARG ROS_DISTRO=humble
 
 FROM ros:${ROS_DISTRO}-ros-core
 
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+
 # Install packages and dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -18,7 +21,25 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-robot-state-publisher \
     ethtool \
     can-utils \
+    ros-${ROS_DISTRO}-moveit \
+    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
+    ros-${ROS_DISTRO}-control* \
+    ros-${ROS_DISTRO}-joint-trajectory-controller \
+    ros-${ROS_DISTRO}-joint-state-* \
+    ros-${ROS_DISTRO}-gripper-controllers \
+    ros-${ROS_DISTRO}-trajectory-msgs \
+    gazebo \
+    ros-${ROS_DISTRO}-gazebo-ros-pkgs \
+    tmux \
+    vim \
     && rm -rf /var/lib/apt/lists/*
+
+# Ensuring MoveIt, RViz parse decimal numbers correctly—by using a period (.) as the decimal separator. 
+RUN apt-get update && apt-get install -y locales \
+    && locale-gen en_US en_US.UTF-8 \
+    && update-locale LC_NUMERIC=en_US.UTF-8
+
+ENV LC_NUMERIC=en_US.UTF-8
 
 RUN pip install python-can scipy piper_sdk
 
